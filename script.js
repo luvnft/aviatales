@@ -1,6 +1,6 @@
 'use strict';
 
-// Form Inputs
+// Form Inputs and Dropdowns
 const formSearch = document.querySelector('.form-search'),
   inputCitiesFrom = document.querySelector('.input__cities-from'),
   dropdownCitiesFrom = document.querySelector('.dropdown__cities-from'),
@@ -8,7 +8,6 @@ const formSearch = document.querySelector('.form-search'),
   dropdownCitiesTo = document.querySelector('.dropdown__cities-to'),
   inputDateDepart = document.querySelector('.input__date-depart');
 
-// Dropdowns
 const city = [
   'Moscow',
   'Saint-Petersburg',
@@ -40,27 +39,27 @@ const showCity = (input, list) => {
   }
 };
 
+const selectCity = (event, input, list) => {
+  const target = event.target;
+  if (target.tagName.toLowerCase() === 'li') {
+    input.value = target.textContent;
+    list.textContent = '';
+  }
+};
+
 // Events
 inputCitiesFrom.addEventListener('input', () => {
   showCity(inputCitiesFrom, dropdownCitiesFrom);
-});
-
-dropdownCitiesFrom.addEventListener('click', event => {
-  const target = event.target;
-  if (target.tagName.toLowerCase() === 'li') {
-    inputCitiesFrom.value = target.textContent;
-    dropdownCitiesFrom.textContent = '';
-  }
 });
 
 inputCitiesTo.addEventListener('input', () => {
   showCity(inputCitiesTo, dropdownCitiesTo);
 });
 
+dropdownCitiesFrom.addEventListener('click', event => {
+  selectCity(event, inputCitiesFrom, dropdownCitiesFrom);
+});
+
 dropdownCitiesTo.addEventListener('click', event => {
-  const target = event.target;
-  if (target.tagName.toLowerCase() === 'li') {
-    inputCitiesTo.value = target.textContent;
-    dropdownCitiesTo.textContent = '';
-  }
+  selectCity(event, inputCitiesTo, dropdownCitiesTo);
 });
