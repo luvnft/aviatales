@@ -12,7 +12,7 @@ const formSearch = document.querySelector('.form-search'),
 let city = [];
 const citiesAPI = 'database/cities.json',
   API_KEY = '407ff446faae19091d7227e3be1bd57a',
-  calendar = 'http://min-prices.aviasales.ru/calendar_preload';
+  //calendar = 'http://min-prices.aviasales.ru/calendar_preload';
 
 // Functions
 
@@ -77,7 +77,24 @@ dropdownCitiesTo.addEventListener('click', event => {
   selectCity(event, inputCitiesTo, dropdownCitiesTo);
 });
 
+formSearch.addEventListener('submit', event => {
+  event.preventDefault();
+
+  const cityFrom = city.find(item => inputCitiesFrom.value === item.name);
+  const cityTo = city.find(item => inputCitiesTo.value === item.name);
+
+  const formData = {
+    from: cityFrom.code,
+    to: cityTo.code,
+    when: inputDateDepart.value,
+  };
+
+  console.log(formData);
+});
+
 // Function calls
 getData(citiesAPI, data => {
   city = JSON.parse(data).filter(item => item.name);
 });
+
+//getData(calendar);
