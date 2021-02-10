@@ -12,7 +12,7 @@ const formSearch = document.querySelector('.form-search'),
 let city = [];
 const citiesAPI = 'database/cities.json',
   API_KEY = '407ff446faae19091d7227e3be1bd57a',
-  //calendar = 'http://min-prices.aviasales.ru/calendar_preload';
+  calendar = 'http://min-prices.aviasales.ru/calendar_preload';
 
 // Functions
 
@@ -60,6 +60,15 @@ const selectCity = (event, input, list) => {
   }
 };
 
+const renderCheap = (data, date) => {
+  const cheapTicketYear = JSON.parse(data).best_prices;
+  console.log('cheapTicketYear: ', cheapTicketYear);
+
+  const cheapTicketDay = cheapTicketYear.filter(item => {
+    return item.depart_date === date;
+  });
+};
+
 // Event handlers
 inputCitiesFrom.addEventListener('input', () => {
   showCity(inputCitiesFrom, dropdownCitiesFrom);
@@ -89,7 +98,19 @@ formSearch.addEventListener('submit', event => {
     when: inputDateDepart.value,
   };
 
-  console.log(formData);
+  const requestData =
+    '?depart_date=' +
+    formData.when +
+    '&origin=' +
+    formData.from +
+    '&destination=' +
+    formData.to +
+    '&one_way=true&token=' +
+    API_KEY;
+
+  getData(calendar + requestData, response => {
+    renderCheap(response, formData.when);
+  });
 });
 
 // Function calls
