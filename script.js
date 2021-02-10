@@ -8,32 +8,45 @@ const formSearch = document.querySelector('.form-search'),
   dropdownCitiesTo = document.querySelector('.dropdown__cities-to'),
   inputDateDepart = document.querySelector('.input__date-depart');
 
-const city = [
-  'Moscow',
-  'Saint-Petersburg',
-  'Samara',
-  'Minsk',
-  'Yekaterinburg',
-  'Novosibirsk',
-  'Kaliningrad',
-  'Kazan',
-  'Sochi',
-  'Rostov-on-Don',
-];
+// Cities database
+let city = [];
+const citiesAPI = 'database/cities.json',
+  API_KEY = '407ff446faae19091d7227e3be1bd57a',
+  calendar = 'http://min-prices.aviasales.ru/calendar_preload';
 
 // Functions
+
+const getData = (url, callback) => {
+  const request = new XMLHttpRequest();
+
+  request.open('GET', url);
+
+  request.addEventListener('readystatechange', () => {
+    if (request.readyState !== 4) return;
+
+    if (request.status === 200) {
+      callback(request.response);
+    } else {
+      console.error(request.status);
+    }
+  });
+
+  request.send();
+};
+
 const showCity = (input, list) => {
   list.textContent = '';
 
   if (input.value !== '') {
     const filterCity = city.filter(item => {
-      const fixItem = item.toLowerCase();
+      const fixItem = item.name.toLowerCase();
       return fixItem.includes(input.value.toLowerCase());
     });
+
     filterCity.forEach(item => {
       const li = document.createElement('li');
       li.classList.add('dropdown__city');
-      li.textContent = item;
+      li.textContent = item.name;
       list.append(li);
     });
   }
@@ -47,7 +60,7 @@ const selectCity = (event, input, list) => {
   }
 };
 
-// Events
+// Event handlers
 inputCitiesFrom.addEventListener('input', () => {
   showCity(inputCitiesFrom, dropdownCitiesFrom);
 });
@@ -62,4 +75,9 @@ dropdownCitiesFrom.addEventListener('click', event => {
 
 dropdownCitiesTo.addEventListener('click', event => {
   selectCity(event, inputCitiesTo, dropdownCitiesTo);
+});
+
+// Function calls
+getData(citiesAPI, data => {
+  city = JSON.parse(data).filter(item => item.name);
 });
