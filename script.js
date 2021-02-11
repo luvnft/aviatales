@@ -62,6 +62,20 @@ const selectCity = (event, input, list) => {
   }
 };
 
+const getNameCity = code => {
+  const objCity = city.find(item => item.code === code);
+
+  return objCity.name;
+};
+
+const getChanges = num => {
+  if (num) {
+    return num === 1 ? 'С одной пересадкой' : 'С двумя пересадками';
+  } else {
+    return 'Без пересадок';
+  }
+};
+
 const createCard = data => {
   const ticket = document.createElement('article');
   ticket.classList.add('ticket');
@@ -79,15 +93,15 @@ const createCard = data => {
       <div class="right-side">
         <div class="block-left">
           <div class="city__from">Вылет из города
-            <span class="city__name">${data.origin}</span>
+            <span class="city__name">${getNameCity(data.origin)}</span>
           </div>
           <div class="date">${data.depart_date}</div>
         </div>
 
         <div class="block-right">
-          <div class="changes">Без пересадок</div>
+          <div class="changes">${getChanges(data.number_of_changes)}</div>
           <div class="city__to">Город назначения:
-            <span class="city__name">${data.destination}</span>
+            <span class="city__name">${getNameCity(data.destination)}</span>
           </div>
         </div>
       </div>
