@@ -86,6 +86,30 @@ const getChanges = num => {
   }
 };
 
+// https://www.aviasales.ru/search/SVX2905KGD1
+
+const getLinkAviasales = data => {
+  let link = 'https://www.aviasales.ru/search/';
+
+  link += data.origin;
+
+  const date = new Date(data.depart_date);
+
+  const day = date.getDate();
+
+  link += day < 10 ? '0' + day : day;
+
+  const month = date.getMonth() + 1;
+
+  link += month < 10 ? '0' + month : month;
+
+  link += data.destination;
+
+  link += '1';
+
+  return link;
+};
+
 const createCard = data => {
   const ticket = document.createElement('article');
   ticket.classList.add('ticket');
@@ -97,7 +121,7 @@ const createCard = data => {
     <h3 class="agent">${data.gate}</h3>
     <div class="ticket__wrapper">
       <div class="left-side">
-        <a href="https://www.aviasales.ru/search/SVX2905KGD1" class="button button__buy">Купить
+        <a href="${getLinkAviasales(data)} " class="button button__buy">Купить
           за ${data.value}₽</a>
       </div>
       <div class="right-side">
@@ -127,11 +151,17 @@ const createCard = data => {
 };
 
 const renderCheapDay = cheapTicket => {
+  cheapestTicket.style.display = 'block';
+  cheapestTicket.innerHTML = '<h2>Самый дешевый билет на выбранную дату</h2>';
+
   const ticket = createCard(cheapTicket[0]);
   cheapestTicket.append(ticket);
 };
 
 const renderCheapYear = cheapTickets => {
+  otherCheapTickets.style.display = 'block';
+  otherCheapTickets.innerHTML = '<h2>Самые дешевые билеты на другие даты</h2>';
+
   cheapTickets.sort((a, b) => {
     if (a.value > b.value) {
       return 1;
@@ -176,9 +206,6 @@ dropdownCitiesTo.addEventListener('click', event => {
 
 formSearch.addEventListener('submit', event => {
   event.preventDefault();
-
-  cheapestTicket.textContent = '';
-  otherCheapTickets.textContent = '';
 
   const cityFrom = city.find(item => inputCitiesFrom.value === item.name);
   const cityTo = city.find(item => inputCitiesTo.value === item.name);
