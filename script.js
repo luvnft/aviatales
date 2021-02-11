@@ -114,12 +114,12 @@ formSearch.addEventListener('submit', event => {
   const cityTo = city.find(item => inputCitiesTo.value === item.name);
 
   const formData = {
-    from: cityFrom.code,
-    to: cityTo.code,
+    from: cityFrom,
+    to: cityTo,
     when: inputDateDepart.value,
   };
 
-  const requestData = `?depart_date=${formData.when}&origin=${formData.from}&destination=${formData.to}&one_way=true`;
+  const requestData = `?depart_date=${formData.when}&origin=${formData.from.code}&destination=${formData.to.code}&one_way=true`;
 
   getData(calendar + requestData, response => {
     renderCheap(response, formData.when);
