@@ -14,7 +14,8 @@ const formSearch = document.querySelector('.form-search'),
 let city = [];
 const citiesAPI = 'database/cities.json',
   API_KEY = '407ff446faae19091d7227e3be1bd57a',
-  calendar = 'http://min-prices.aviasales.ru/calendar_preload';
+  calendar = 'http://min-prices.aviasales.ru/calendar_preload',
+  MAX_COUNT = 10;
 
 // Functions
 
@@ -121,7 +122,9 @@ const createCard = data => {
     <h3 class="agent">${data.gate}</h3>
     <div class="ticket__wrapper">
       <div class="left-side">
-        <a href="${getLinkAviasales(data)} " class="button button__buy">Купить
+        <a href="${getLinkAviasales(
+          data
+        )}" target="_blank" class="button button__buy">Купить
           за ${data.value}₽</a>
       </div>
       <div class="right-side">
@@ -171,6 +174,11 @@ const renderCheapYear = cheapTickets => {
     }
     return 0;
   });
+
+  for (let i = 0; i < cheapTickets.length && i < MAX_COUNT; i++) {
+    const ticket = createCard(cheapTickets[i]);
+    otherCheapTickets.append(ticket);
+  }
 
   console.log(cheapTickets);
 };
