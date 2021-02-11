@@ -40,7 +40,7 @@ const showCity = (input, list) => {
   if (input.value !== '') {
     const filterCity = city.filter(item => {
       const fixItem = item.name.toLowerCase();
-      return fixItem.includes(input.value.toLowerCase());
+      return fixItem.startsWith(input.value.toLowerCase());
     });
 
     filterCity.forEach(item => {
@@ -60,6 +60,24 @@ const selectCity = (event, input, list) => {
   }
 };
 
+const renderCheapDay = cheapTicket => {
+  console.log(cheapTicket);
+};
+
+const renderCheapYear = cheapTickets => {
+  cheapTickets.sort((a, b) => {
+    if (a.value > b.value) {
+      return 1;
+    }
+    if (a.value < b.value) {
+      return -1;
+    }
+    return 0;
+  });
+
+  console.log(cheapTickets);
+};
+
 const renderCheap = (data, date) => {
   const cheapTicketYear = JSON.parse(data).best_prices;
   console.log('cheapTicketYear: ', cheapTicketYear);
@@ -67,6 +85,9 @@ const renderCheap = (data, date) => {
   const cheapTicketDay = cheapTicketYear.filter(item => {
     return item.depart_date === date;
   });
+
+  renderCheapDay(cheapTicketDay);
+  renderCheapYear(cheapTicketYear);
 };
 
 // Event handlers
@@ -98,15 +119,7 @@ formSearch.addEventListener('submit', event => {
     when: inputDateDepart.value,
   };
 
-  const requestData =
-    '?depart_date=' +
-    formData.when +
-    '&origin=' +
-    formData.from +
-    '&destination=' +
-    formData.to +
-    '&one_way=true&token=' +
-    API_KEY;
+  const requestData = `?depart_date=${formData.when}&origin=${formData.from}&destination=${formData.to}&one_way=true`;
 
   getData(calendar + requestData, response => {
     renderCheap(response, formData.when);
@@ -116,6 +129,16 @@ formSearch.addEventListener('submit', event => {
 // Function calls
 getData(citiesAPI, data => {
   city = JSON.parse(data).filter(item => item.name);
+
+  city.sort((a, b) => {
+    if (a.name > b.name) {
+      return 1;
+    }
+    if (a.name < b.name) {
+      return -1;
+    }
+    return 0;
+  });
 });
 
 //getData(calendar);

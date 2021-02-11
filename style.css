@@ -71,9 +71,19 @@ h3 {
   z-index: 1;
   width: 100%;
   border-radius: 5px;
-  color: inherit;
+  color: #fff;
   background-color: #4caffa;
 }
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+input[type='date'] {
+  background: url('../img/icon_calendar.svg') #f7f9fc no-repeat 90% 50%;
+  background-size: 28px 28px;
+}
+
 .wrapper__search .input input:focus ~ .label {
   top: -25px;
   left: 0;
@@ -128,14 +138,14 @@ input {
   font-style: normal;
   line-height: 1.4;
   font-weight: 500;
-  color: inherit;
+  color: #fff;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   -webkit-appearance: none;
-  background-color: #f57c00;
-  -webkit-box-shadow: 0 1px 0 0 #d84d00, 0 2px 6px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 0 0 #d84d00, 0 2px 6px 0 rgba(0, 0, 0, 0.15);
+  background-color: #f77b00;
+  /*   -webkit-box-shadow: 0 1px 0 0 #d84d00, 0 2px 6px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 0 0 #d84d00, 0 2px 6px 0 rgba(0, 0, 0, 0.15); */
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   transition: all 0.3s;
@@ -151,8 +161,9 @@ input {
   display: inline-block;
   width: 36px;
   height: 36px;
-  background: 50% 50%/100% no-repeat url(img/plane.svg);
-  margin-left: 2px;
+
+  background: no-repeat url(img/plane.svg);
+  margin-left: 20px;
 }
 .left-side,
 .right-side {
