@@ -119,11 +119,15 @@ formSearch.addEventListener('submit', event => {
     when: inputDateDepart.value,
   };
 
-  const requestData = `?depart_date=${formData.when}&origin=${formData.from.code}&destination=${formData.to.code}&one_way=true`;
+  if (formData.from && formData.to) {
+    const requestData = `?depart_date=${formData.when}&origin=${formData.from.code}&destination=${formData.to.code}&one_way=true`;
 
-  getData(calendar + requestData, response => {
-    renderCheap(response, formData.when);
-  });
+    getData(calendar + requestData, response => {
+      renderCheap(response, formData.when);
+    });
+  } else {
+    alert('Check the city name!');
+  }
 });
 
 // Function calls
