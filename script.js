@@ -177,6 +177,9 @@ dropdownCitiesTo.addEventListener('click', event => {
 formSearch.addEventListener('submit', event => {
   event.preventDefault();
 
+  cheapestTicket.textContent = '';
+  otherCheapTickets.textContent = '';
+
   const cityFrom = city.find(item => inputCitiesFrom.value === item.name);
   const cityTo = city.find(item => inputCitiesTo.value === item.name);
 
