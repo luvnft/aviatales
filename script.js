@@ -19,7 +19,7 @@ const citiesAPI = 'database/cities.json',
 
 // Functions
 
-const getData = (url, callback) => {
+const getData = (url, callback, reject = console.error) => {
   const request = new XMLHttpRequest();
 
   request.open('GET', url);
@@ -30,7 +30,7 @@ const getData = (url, callback) => {
     if (request.status === 200) {
       callback(request.response);
     } else {
-      console.error(request.status);
+      reject(request.status);
     }
   });
 
@@ -227,9 +227,16 @@ formSearch.addEventListener('submit', event => {
   if (formData.from && formData.to) {
     const requestData = `?depart_date=${formData.when}&origin=${formData.from.code}&destination=${formData.to.code}&one_way=true`;
 
-    getData(calendar + requestData, response => {
-      renderCheap(response, formData.when);
-    });
+    getData(
+      calendar + requestData,
+      response => {
+        renderCheap(response, formData.when);
+      },
+      error => {
+        alert('В этом направлении нет рейсов');
+        console.log('Ошибка', error);
+      }
+    );
   } else {
     alert('Check the city name!');
   }
