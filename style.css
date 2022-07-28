@@ -59,6 +59,7 @@ h3 {
   border: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  font-size: 16px;
   height: 60px;
   line-height: 2.25rem;
   padding: 9px 18px;
@@ -102,7 +103,8 @@ input {
   position: relative;
   z-index: 10;
   width: 100%;
-  background: #fff;
+  background: #e7e5e5;
+  opacity: 0.9;
   color: #000;
   max-height: 300px;
   overflow-x: hidden;
