@@ -16,7 +16,7 @@ const API_KEY = '407ff446faae19091d7227e3be1bd57a';
 const calendar = 'https://api.travelpayouts.com/aviasales/v3/prices_for_dates';
 /* const calendarFull = `http://api.travelpayouts.com/v1/prices/cheap?origin=MOW&destination=HKT&depart_date=2023-03&return_date=2023-04&token=${API_KEY}`; */
 
-//const proxy = 'https://cors-anywhere.herokuapp.com/';
+const proxy = 'https://cors-anywhere.herokuapp.com/';
 
 const formatCityName = iataCode => {
   const cityObj = cities.find(item => item.code === iataCode);
@@ -149,8 +149,7 @@ const getCheapTickets = async function (url) {
   }
 };
 
-//getData(proxy + citiesAPI);
-getData(citiesAPI);
+getData(proxy + citiesAPI);
 
 /* Dropdown handlers */
 
@@ -215,8 +214,7 @@ formSearch.addEventListener('submit', event => {
     const requestData = `?origin=${formInfo.from.code}&destination=${formInfo.to.code}&departure_at=${formInfo.when}&return_at=${formInfo.back}&sorting=price&token=${API_KEY}`;
 
     console.log(requestData);
-    //getCheapTickets(proxy + calendar + requestData);
-    getCheapTickets(calendar + requestData);
+    getCheapTickets(proxy + calendar + requestData);
     //getCheapTickets(proxy + newCalendar + newRequestData);
   } else {
     alert('Введите корректное название города!');
