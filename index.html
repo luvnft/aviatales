@@ -4,18 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aviatales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <h1>aviatales</h1>
     <main>
+      <h1>aviatales</h1>
+      <h3>найди себе билет на каникулы!</h3>
       <section class="wrapper">
         <form class="form-search">
           <div class="wrapper__search">
             <div class="input" style="display: block">
               <label
-                >From
+                >Вылет из
                 <input type="text" class="input__cities-from" required />
               </label>
               <ul class="dropdown dropdown__cities-from"></ul>
@@ -23,16 +30,22 @@
 
             <div class="input">
               <label
-                >To
+                >Прибытие в
                 <input type="text" class="input__cities-to" required />
               </label>
               <ul class="dropdown dropdown__cities-to"></ul>
             </div>
 
-            <div class="input input__cities-from">
+            <div class="input">
               <label
-                >Departure date
+                >Когда
                 <input type="date" class="input__date-depart" required />
+              </label>
+            </div>
+            <div class="input">
+              <label
+                >Обратно
+                <input type="date" class="input__date-return" required />
               </label>
             </div>
           </div>
@@ -44,7 +57,7 @@
           </div>
         </form>
       </section>
-      <section class="wrapper">
+      <div class="wrapper">
         <section
           class="wrapper__ticket"
           id="cheapest-ticket"
@@ -55,7 +68,7 @@
           id="other-cheap-tickets"
           style="display: none"
         ></section>
-      </section>
+      </div>
     </main>
     <script src="script.js"></script>
   </body>
