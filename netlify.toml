@@ -1,0 +1,8 @@
+[[redirects]]
+  from = “/api.travelpayouts.com/*”
+  to = “https://aviatalessearch.netlify.app/api.travelpayouts.com/:splat"
+  status = 200
+[[redirects]]
+  from = “/*”
+  to = “/index.html”
+  status = 200
