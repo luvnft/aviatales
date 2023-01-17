@@ -11,7 +11,7 @@ const formSearch = document.querySelector('.form-search'),
 let cities = [];
 
 const citiesAPI = 'https://api.travelpayouts.com/data/ru/cities.json';
-const API_KEY = '407ff446faae19091d7227e3be1bd57a';
+
 //const calendar = 'http://api.travelpayouts.com/v1/prices/cheap';
 const calendar = 'https://api.travelpayouts.com/aviasales/v3/prices_for_dates';
 /* const calendarFull = `http://api.travelpayouts.com/v1/prices/cheap?origin=MOW&destination=HKT&depart_date=2023-03&return_date=2023-04&token=${API_KEY}`; */
