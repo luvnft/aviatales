@@ -17,6 +17,7 @@ const calendar = 'https://api.travelpayouts.com/aviasales/v3/prices_for_dates';
 /* const calendarFull = `http://api.travelpayouts.com/v1/prices/cheap?origin=MOW&destination=HKT&depart_date=2023-03&return_date=2023-04&token=${API_KEY}`; */
 
 const proxy = 'https://cors-anywhere.herokuapp.com/';
+let API_KEY = '';
 
 const formatCityName = iataCode => {
   const cityObj = cities.find(item => item.code === iataCode);
