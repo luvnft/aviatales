@@ -1,7 +1,8 @@
 [[redirects]]
-  from = '/api.travelpayouts.com/*'
-  to = 'https://aviatalessearch.netlify.app/api.travelpayouts.com/:splat'
+  from = '/api/*'
+  to = 'http://api.travelpayouts.com/:splat'
   status = 200
+  headers = { Access-Control-Allow-Origin = '*', Authorization = '407ff446faae19091d7227e3be1bd57a'}
 [[redirects]]
   from = '/*'
   to = '/index.html'
