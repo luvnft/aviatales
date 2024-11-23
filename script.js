@@ -10,14 +10,14 @@ const formSearch = document.querySelector('.form-search'),
   otherCheapTickets = document.getElementById('other-cheap-tickets');
 let cities = [];
 
-const citiesAPI = '/api/data/ru/cities.json';
+const citiesAPI = '/api/data/en/cities.json';
 
 //const calendar = 'http://api.travelpayouts.com/v1/prices/cheap';
 const calendar = '/api/aviasales/v3/prices_for_dates';
 /* const calendarFull = `http://api.travelpayouts.com/v1/prices/cheap?origin=MOW&destination=HKT&depart_date=2023-03&return_date=2023-04&token=${API_KEY}`; */
 
-//const proxy = 'https://cors-anywhere.herokuapp.com/';
-const API_KEY = '407ff446faae19091d7227e3be1bd57a';
+//const proxy = 'https://flights.w3w.travel';
+const API_KEY = 'c527e8ecab5a458674466a96af27c420';
 
 const formatCityName = iataCode => {
   const cityObj = cities.find(item => item.code === iataCode);
@@ -25,7 +25,7 @@ const formatCityName = iataCode => {
 };
 
 const formatDate = date => {
-  return new Date(date).toLocaleString('ru', {
+  return new Date(date).toLocaleString('en', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -37,14 +37,14 @@ const formatDate = date => {
 const getChanges = num => {
   console.log(num);
   if (num === 0) {
-    return 'Без пересадок';
+    return 'Non-stop';
   } else {
-    return num === 1 ? 'С одной пересадкой' : 'С двумя пересадками';
+    return num === 1 ? 'One stop' : 'Two stops';
   }
 };
 
 const getLinkAviasales = data => {
-  let link = `https://www.aviasales.ru${data.link}`;
+  let link = `https://www.aviasales.com${data.link}`;
   console.log(link);
   return link;
 };
@@ -59,12 +59,12 @@ const createCard = obj => {
     html = `
   <div class="ticket__wrapper">
     <div class="left-side">
-      <a href="${getLinkAviasales(obj)}" class="button button__buy">Купить
-        за ${obj.price}₽</a>
+      <a href="${getLinkAviasales(obj)}" class="button button__buy">Buy for
+        ${obj.price}₽</a>
     </div>
     <div class="right-side">
       <div class="block-left">
-        <div class="city__from">Вылет из города
+        <div class="city__from">Departure from
           <span class="city__name">${formatCityName(obj.origin)}</span>
         </div>
         <div class="date">${formatDate(obj.departure_at)}</div>
@@ -72,14 +72,14 @@ const createCard = obj => {
   
       <div class="block-right">
         <div class="changes">${getChanges(obj.transfers)}</div>
-        <div class="city__to">Город назначения:
+        <div class="city__to">Destination city:
           <span class="city__name">${formatCityName(obj.destination)}</span>
         </div>
       </div>
     </div>
   </div>`;
   } else {
-    html = '<h3>На выбранную дату билеты не найдены</h3>';
+    html = '<h3>No tickets found for the selected date</h3>';
   }
 
   ticket.insertAdjacentHTML('beforeend', html);
@@ -89,7 +89,7 @@ const createCard = obj => {
 
 const renderCheapest = cheapTicket => {
   cheapestTicket.style.display = 'block';
-  cheapestTicket.innerHTML = '<h3>Самый дешевый билет на выбранные даты</h3>';
+  cheapestTicket.innerHTML = '<h3>Cheapest ticket for the selected dates</h3>';
   const ticket = createCard(cheapTicket);
   cheapestTicket.append(ticket);
 };
@@ -97,7 +97,7 @@ const renderCheapest = cheapTicket => {
 const renderCheapArr = cheapTickets => {
   otherCheapTickets.style.display = 'block';
   otherCheapTickets.innerHTML =
-    '<h3>Другие дешевые билеты на выбранные даты</h3>';
+    '<h3>Other cheap tickets for the selected dates</h3>';
   console.log(cheapTickets);
 };
 
@@ -134,7 +134,7 @@ const getData = async function (url) {
       });
   } catch (error) {
     console.error(error);
-    alert(`Ошибка при получении города! Подробнее: ${error}`);
+    alert(`Error while fetching city data! Details: ${error}`);
   }
 };
 
@@ -146,7 +146,7 @@ const getCheapTickets = async function (url) {
     renderCheap(data);
   } catch (error) {
     console.error(error);
-    alert(`Ошибка запроса билетов! Подробнее: ${error}`);
+    alert(`Error fetching tickets! Details: ${error}`);
   }
 };
 
@@ -220,6 +220,6 @@ formSearch.addEventListener('submit', event => {
     getCheapTickets(calendar + requestData);
     //getCheapTickets(proxy + newCalendar + newRequestData);
   } else {
-    alert('Введите корректное название города!');
+    alert('Please enter a valid city name!');
   }
 });
